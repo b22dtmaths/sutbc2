@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SUT Image Classification breastcancer MIDTHaI by Lt.Ratapong Onjun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .preview {
+            max-width: 300px;
+            margin: 20px 0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Classification</h1>
+   
+    <div class="upload-form">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".jpg,.jpeg,.png" onchange="previewImage(event)">
+            <input type="submit" value="ทำนาย">
+        </form>
+    </div>
+
+
+    <img id="preview" class="preview" style="display: none;">
+
+
+    {% if prediction %}
+    <div class="result">
+        <h3>ผลการทำนาย:</h3>
+        <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
+
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>
+
